@@ -12,8 +12,7 @@ class RegionDetectorGUI:
         self.root.title("Det_crop")
         self.root.geometry("550x480")
         self.setup_gui()
-
-        # Data structures for different region types
+        
         self.current_regions = []  # auto-detected rectangular regions: list of (x, y, w, h)
         self.manual_regions = []  # manually drawn rectangular regions: list of (x, y, w, h)
         self.freehand_polygons = []  # manually drawn freehand polygons: list of lists of (x, y)
@@ -300,18 +299,15 @@ class RegionDetectorGUI:
                 x1, x2 = min(x1, x2), max(x1, x2)
                 y1, y2 = min(y1, y2), max(y1, y2)
 
-                # Convert coords to original image scale
+                # Convert coordinates to original image scale
                 scale = self.scale_factor
                 orig_x1 = int(x1 / scale)
                 orig_y1 = int(y1 / scale)
                 orig_x2 = int(x2 / scale)
                 orig_y2 = int(y2 / scale)
 
-                # Store the new rectangle
-                self.manual_regions.append((orig_x1, orig_y1, orig_x2 - orig_x1, orig_y2 - orig_y1))
-
-                # Redraw preview with the new rectangle
-                self.redraw_preview()
+                self.manual_regions.append((orig_x1, orig_y1, orig_x2 - orig_x1, orig_y2 - orig_y1)) # Store the new rect
+                self.redraw_preview() # Redraw preview with the new rectangle
 
         # 3. Freehand drawing mode
         elif self.drawing_mode == 'freehand':
@@ -495,21 +491,3 @@ class RegionDetectorGUI:
 if __name__ == "__main__":
     app = RegionDetectorGUI()
     app.run()
-
-
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
